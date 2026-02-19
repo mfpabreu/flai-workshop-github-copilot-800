@@ -70,21 +70,23 @@ function Leaderboard() {
               <tr>
                 <th className="text-center" style={{ width: '80px' }}>Rank</th>
                 <th>User</th>
-                <th className="text-end">Score</th>
+                <th>Team</th>
+                <th className="text-end">Total Calories</th>
               </tr>
             </thead>
             <tbody>
               {entries.length === 0 ? (
                 <tr>
-                  <td colSpan="3" className="text-center text-muted py-4">No entries found.</td>
+                  <td colSpan="4" className="text-center text-muted py-4">No entries found.</td>
                 </tr>
               ) : (
                 entries.map((entry, index) => (
                   <tr key={entry._id || index} className={index === 0 ? 'table-warning' : ''}>
                     <td className="text-center fs-5">{rankMedal(index)}</td>
-                    <td><span className="fw-semibold">{entry.user}</span></td>
+                    <td><span className="fw-semibold">{entry.user_name}</span></td>
+                    <td>{entry.team || 'N/A'}</td>
                     <td className="text-end">
-                      <span className="badge bg-success octofit-badge fs-6">{entry.score}</span>
+                      <span className="badge bg-success octofit-badge fs-6">{entry.total_calories}</span>
                     </td>
                   </tr>
                 ))
