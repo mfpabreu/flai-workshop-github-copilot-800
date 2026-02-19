@@ -1,86 +1,172 @@
-/* ── OctoFit Tracker – Global Styles ── */
+/* OctoFit Tracker - Global Styles */
 
 /* Brand colours */
 :root {
-  --octofit-primary:   #0d6efd;
-  --octofit-dark:      #212529;
-  --octofit-accent:    #61dafb;
-  --octofit-success:   #198754;
-  --octofit-warning:   #ffc107;
-  --octofit-danger:    #dc3545;
-  --octofit-light-bg: #f8f9fa;
-  --card-shadow:       0 2px 8px rgba(0, 0, 0, 0.12);
+  --octofit-primary:    #5b21b6;
+  --octofit-primary-lt: #7c3aed;
+  --octofit-dark:       #1e1b2e;
+  --octofit-accent:     #a78bfa;
+  --octofit-accent2:    #f472b6;
+  --octofit-success:    #059669;
+  --octofit-warning:    #d97706;
+  --octofit-danger:     #dc2626;
+  --octofit-light-bg:   #f5f3ff;
+  --card-shadow:        0 4px 14px rgba(91, 33, 182, 0.15);
 }
 
-/* ── Body ── */
+/* Body */
 body {
-  background-color: var(--octofit-light-bg);
+  background: linear-gradient(160deg, #f5f3ff 0%, #ede9fe 60%, #fce7f3 100%);
+  min-height: 100vh;
   color: var(--octofit-dark);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ── Navbar ── */
+/* Links */
+a {
+  color: var(--octofit-primary-lt);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--octofit-accent2);
+  text-decoration: underline;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5 {
+  color: var(--octofit-primary);
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, #1e1b2e 0%, #3b1a6e 100%) !important;
+  border-bottom: 2px solid var(--octofit-accent);
+}
+
 .navbar-brand {
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   letter-spacing: 0.5px;
   color: var(--octofit-accent) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-brand img.nav-logo {
+  height: 34px;
+  width: auto;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
 }
 
 .navbar .nav-link {
   font-weight: 500;
-  transition: color 0.2s;
+  color: #d4bbff !important;
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  margin: 0 2px;
 }
 
-.navbar .nav-link.active,
+.navbar .nav-link.active {
+  color: #fff !important;
+  background-color: var(--octofit-primary-lt);
+}
+
 .navbar .nav-link:hover {
-  color: var(--octofit-accent) !important;
+  color: var(--octofit-accent2) !important;
+  background-color: rgba(167, 139, 250, 0.12);
 }
 
-/* ── Page heading inside card-header ── */
+/* Page heading inside card-header */
 .octofit-card-header {
-  background: linear-gradient(135deg, var(--octofit-primary), #0854c4);
+  background: linear-gradient(135deg, var(--octofit-primary), var(--octofit-primary-lt));
   color: #fff;
   border-radius: 0.5rem 0.5rem 0 0 !important;
+  padding: 1rem 1.25rem;
 }
 
 .octofit-card-header h2 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
+  color: #fff;
 }
 
-/* ── Cards ── */
+/* Cards */
 .card {
-  border: none;
+  border: 1px solid rgba(124, 58, 237, 0.15);
   box-shadow: var(--card-shadow);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
+  background-color: #fff;
 }
 
-/* ── Tables ── */
+/* Tables */
 .table {
   font-size: 0.95rem;
   margin-bottom: 0;
 }
 
 .table thead.table-dark th {
-  background-color: #343a40;
+  background: linear-gradient(90deg, var(--octofit-primary) 0%, var(--octofit-primary-lt) 100%);
   color: #fff;
-  border-color: #454d55;
+  border-color: #6d28d9;
   font-weight: 600;
   white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.table tbody tr {
+  transition: background-color 0.15s;
 }
 
 .table-hover tbody tr:hover {
-  background-color: rgba(13, 110, 253, 0.06);
+  background-color: rgba(124, 58, 237, 0.06);
+}
+
+.table tbody td {
+  color: #3b1f63;
+  vertical-align: middle;
 }
 
 .table-responsive {
-  border-radius: 0 0 0.5rem 0.5rem;
+  border-radius: 0 0 0.75rem 0.75rem;
   overflow: hidden;
 }
 
-/* ── Badges ── */
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--octofit-primary) 0%, var(--octofit-primary-lt) 100%);
+  border-color: var(--octofit-primary);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, var(--octofit-primary-lt) 0%, var(--octofit-accent2) 100%);
+  border-color: var(--octofit-primary-lt);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 33, 182, 0.3);
+}
+
+.btn-light {
+  background-color: #fff;
+  color: var(--octofit-primary);
+  border-color: #fff;
+  font-weight: 600;
+}
+
+.btn-light:hover {
+  background-color: var(--octofit-accent);
+  color: var(--octofit-dark);
+  border-color: var(--octofit-accent);
+}
+
+/* Badges */
 .octofit-badge {
   font-size: 0.78rem;
   padding: 0.35em 0.65em;
@@ -89,16 +175,16 @@ body {
 }
 
 /* Difficulty badges */
-.badge-easy      { background-color: var(--octofit-success); color: #fff; }
-.badge-medium    { background-color: var(--octofit-warning); color: #212529; }
-.badge-hard      { background-color: var(--octofit-danger);  color: #fff; }
+.badge-easy   { background-color: var(--octofit-success); color: #fff; }
+.badge-medium { background-color: var(--octofit-warning); color: #fff; }
+.badge-hard   { background-color: var(--octofit-danger);  color: #fff; }
 
 /* Rank medals */
 .rank-gold   { color: #FFD700; font-weight: 700; }
-.rank-silver { color: #C0C0C0; font-weight: 700; }
+.rank-silver { color: #A0A0B0; font-weight: 700; }
 .rank-bronze { color: #CD7F32; font-weight: 700; }
 
-/* ── Loading spinner ── */
+/* Loading spinner */
 .octofit-loading {
   display: flex;
   flex-direction: column;
@@ -106,22 +192,37 @@ body {
   justify-content: center;
   min-height: 200px;
   gap: 1rem;
-  color: var(--octofit-primary);
+  color: var(--octofit-primary-lt);
 }
 
-/* ── Hero / Welcome ── */
+/* Hero / Welcome */
 .octofit-hero {
-  background: linear-gradient(135deg, #0d6efd 0%, #0854c4 100%);
+  background: linear-gradient(135deg, var(--octofit-primary) 0%, var(--octofit-primary-lt) 50%, #9333ea 100%);
   color: #fff;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   padding: 3rem 2rem;
   margin-bottom: 2rem;
   box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.octofit-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  background: rgba(244, 114, 182, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .octofit-hero h1 {
   font-size: 2.4rem;
   font-weight: 700;
+  color: #fff;
 }
 
 .octofit-hero .lead {
@@ -133,12 +234,18 @@ body {
 .feature-card {
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: default;
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
+  border-top: 3px solid var(--octofit-primary-lt) !important;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(91, 33, 182, 0.2);
+  border-top-color: var(--octofit-accent2) !important;
+}
+
+.feature-card .card-title {
+  color: var(--octofit-primary);
 }
 
 .feature-icon {
@@ -146,7 +253,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* ── Responsive tweaks ── */
+/* Responsive tweaks */
 @media (max-width: 576px) {
   .octofit-hero h1 { font-size: 1.7rem; }
 }
