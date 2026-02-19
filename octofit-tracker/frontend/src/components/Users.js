@@ -62,10 +62,10 @@ function Users() {
             <thead className="table-dark">
               <tr>
                 <th>#</th>
-                <th>Username</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th className="text-center">Age</th>
-                <th>Fitness Goal</th>
+                <th>Team</th>
+                <th>Created At</th>
               </tr>
             </thead>
             <tbody>
@@ -77,14 +77,12 @@ function Users() {
                 users.map((user, index) => (
                   <tr key={user._id || index}>
                     <td className="text-muted">{index + 1}</td>
-                    <td><span className="fw-semibold">👤 {user.username}</span></td>
+                    <td><span className="fw-semibold">👤 {user.name}</span></td>
                     <td>
                       <a href={`mailto:${user.email}`} className="text-decoration-none">{user.email}</a>
                     </td>
-                    <td className="text-center">{user.age}</td>
-                    <td>
-                      <span className="badge bg-primary octofit-badge">{user.fitness_goal}</span>
-                    </td>
+                    <td>{user.team || <span className="text-muted">—</span>}</td>
+                    <td>{user.created_at ? new Date(user.created_at).toLocaleDateString() : '—'}</td>
                   </tr>
                 ))
               )}
