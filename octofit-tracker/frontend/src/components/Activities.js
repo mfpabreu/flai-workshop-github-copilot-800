@@ -82,7 +82,7 @@ function Activities() {
                       <span className="badge bg-primary octofit-badge">{activity.activity_type}</span>
                     </td>
                     <td>{activity.duration}</td>
-                    <td>{activity.date}</td>
+                    <td>{activity.date ? new Date(activity.date).toLocaleDateString() : 'N/A'}</td>
                   </tr>
                 ))
               )}
