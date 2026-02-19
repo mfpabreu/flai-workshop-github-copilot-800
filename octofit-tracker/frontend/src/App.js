@@ -32,18 +32,20 @@ function HomePage() {
       <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
         {features.map((f) => (
           <div className="col" key={f.title}>
-            <div className="card feature-card h-100">
-              <div className="card-body text-center py-4">
-                <div className="feature-icon">{f.icon}</div>
-                <h5 className="card-title fw-bold">{f.title}</h5>
-                <p className="card-text text-muted">{f.desc}</p>
+            <Link to={f.to} className="text-decoration-none">
+              <div className="card feature-card h-100" style={{ cursor: 'pointer' }}>
+                <div className="card-body text-center py-4">
+                  <div className="feature-icon">{f.icon}</div>
+                  <h5 className="card-title fw-bold">{f.title}</h5>
+                  <p className="card-text text-muted">{f.desc}</p>
+                </div>
+                <div className="card-footer bg-transparent border-0 text-center pb-3">
+                  <span className="btn btn-primary btn-sm px-4">
+                    Go to {f.title}
+                  </span>
+                </div>
               </div>
-              <div className="card-footer bg-transparent border-0 text-center pb-3">
-                <Link className="btn btn-primary btn-sm px-4" to={f.to}>
-                  Go to {f.title}
-                </Link>
-              </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>

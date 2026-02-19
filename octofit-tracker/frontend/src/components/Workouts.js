@@ -72,23 +72,27 @@ function Workouts() {
               <tr>
                 <th>#</th>
                 <th>Workout Name</th>
+                <th>Category</th>
                 <th>Description</th>
                 <th className="text-center">Duration (min)</th>
+                <th className="text-center">Cal/Session</th>
                 <th className="text-center">Difficulty</th>
               </tr>
             </thead>
             <tbody>
               {workouts.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center text-muted py-4">No workouts found.</td>
+                  <td colSpan="7" className="text-center text-muted py-4">No workouts found.</td>
                 </tr>
               ) : (
                 workouts.map((workout, index) => (
                   <tr key={workout._id || index}>
                     <td className="text-muted">{index + 1}</td>
                     <td><span className="fw-semibold">{workout.name}</span></td>
+                    <td><span className="badge bg-info text-dark">{workout.category || '—'}</span></td>
                     <td className="text-muted">{workout.description}</td>
                     <td className="text-center">{workout.duration}</td>
+                    <td className="text-center">{workout.calories_per_session ?? '—'}</td>
                     <td className="text-center">{difficultyBadge(workout.difficulty)}</td>
                   </tr>
                 ))
