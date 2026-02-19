@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User, Team, Activity, Leaderboard, Workout
 from bson import ObjectId
+import ast
 
 
 class ObjectIdField(serializers.Field):
@@ -23,7 +24,20 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
     _id = ObjectIdField(read_only=True)
-    
+    members = serializers.SerializerMethodField()
+
+    def get_members(self, obj):
+        members = obj.members
+        if isinstance(members, list):
+            return members
+        if isinstance(members, str):
+            try:
+                parsed = ast.literal_eval(members)
+                return parsed if isinstance(parsed, list) else []
+            except (ValueError, SyntaxError):
+                return [m.strip() for m in members.split(',') if m.strip()]
+        return []
+
     class Meta:
         model = Team
         fields = ['_id', 'name', 'description', 'members', 'created_at']
