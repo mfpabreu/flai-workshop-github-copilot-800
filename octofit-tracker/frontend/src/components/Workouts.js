@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+const difficultyBadge = (level) => {
+  if (!level) return <span className="badge bg-secondary octofit-badge">—</span>;
+  const l = String(level).toLowerCase();
+  if (l === 'easy')   return <span className="badge badge-easy octofit-badge">Easy</span>;
+  if (l === 'medium') return <span className="badge badge-medium octofit-badge">Medium</span>;
+  if (l === 'hard')   return <span className="badge badge-hard octofit-badge">Hard</span>;
+  return <span className="badge bg-secondary octofit-badge">{level}</span>;
+};
+
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +29,6 @@ function Workouts() {
       })
       .then((data) => {
         console.log('Workouts: fetched data', data);
-        // Support both paginated (.results) and plain array responses
         const items = Array.isArray(data) ? data : data.results || [];
         setWorkouts(items);
         setLoading(false);
@@ -32,32 +40,63 @@ function Workouts() {
       });
   }, [apiUrl]);
 
-  if (loading) return <div className="container mt-4"><p>Loading workouts...</p></div>;
-  if (error) return <div className="container mt-4"><p className="text-danger">Error: {error}</p></div>;
+  if (loading) {
+    return (
+      <div className="octofit-loading">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="fw-semibold">Loading workouts...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger d-flex align-items-center mt-4" role="alert">
+        <strong>Error:&nbsp;</strong> {error}
+      </div>
+    );
+  }
 
   return (
-    <div className="container mt-4">
-      <h2>Workouts</h2>
-      <table className="table table-striped table-bordered">
-        <thead className="table-dark">
-          <tr>
-            <th>Workout Name</th>
-            <th>Description</th>
-            <th>Duration (min)</th>
-            <th>Difficulty</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts.map((workout, index) => (
-            <tr key={workout._id || index}>
-              <td>{workout.name}</td>
-              <td>{workout.description}</td>
-              <td>{workout.duration}</td>
-              <td>{workout.difficulty}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="card mt-4">
+      <div className="card-header octofit-card-header d-flex align-items-center justify-content-between">
+        <h2 className="mb-0">💪 Workouts</h2>
+        <span className="badge bg-light text-dark">{workouts.length} workouts</span>
+      </div>
+      <div className="card-body p-0">
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered table-hover mb-0">
+            <thead className="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Workout Name</th>
+                <th>Description</th>
+                <th className="text-center">Duration (min)</th>
+                <th className="text-center">Difficulty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {workouts.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center text-muted py-4">No workouts found.</td>
+                </tr>
+              ) : (
+                workouts.map((workout, index) => (
+                  <tr key={workout._id || index}>
+                    <td className="text-muted">{index + 1}</td>
+                    <td><span className="fw-semibold">{workout.name}</span></td>
+                    <td className="text-muted">{workout.description}</td>
+                    <td className="text-center">{workout.duration}</td>
+                    <td className="text-center">{difficultyBadge(workout.difficulty)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

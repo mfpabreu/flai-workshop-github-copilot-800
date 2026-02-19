@@ -20,7 +20,6 @@ function Users() {
       })
       .then((data) => {
         console.log('Users: fetched data', data);
-        // Support both paginated (.results) and plain array responses
         const items = Array.isArray(data) ? data : data.results || [];
         setUsers(items);
         setLoading(false);
@@ -32,32 +31,67 @@ function Users() {
       });
   }, [apiUrl]);
 
-  if (loading) return <div className="container mt-4"><p>Loading users...</p></div>;
-  if (error) return <div className="container mt-4"><p className="text-danger">Error: {error}</p></div>;
+  if (loading) {
+    return (
+      <div className="octofit-loading">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="fw-semibold">Loading users...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger d-flex align-items-center mt-4" role="alert">
+        <strong>Error:&nbsp;</strong> {error}
+      </div>
+    );
+  }
 
   return (
-    <div className="container mt-4">
-      <h2>Users</h2>
-      <table className="table table-striped table-bordered">
-        <thead className="table-dark">
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Fitness Goal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user._id || index}>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.age}</td>
-              <td>{user.fitness_goal}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="card mt-4">
+      <div className="card-header octofit-card-header d-flex align-items-center justify-content-between">
+        <h2 className="mb-0">👤 Users</h2>
+        <span className="badge bg-light text-dark">{users.length} users</span>
+      </div>
+      <div className="card-body p-0">
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered table-hover mb-0">
+            <thead className="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th className="text-center">Age</th>
+                <th>Fitness Goal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center text-muted py-4">No users found.</td>
+                </tr>
+              ) : (
+                users.map((user, index) => (
+                  <tr key={user._id || index}>
+                    <td className="text-muted">{index + 1}</td>
+                    <td><span className="fw-semibold">👤 {user.username}</span></td>
+                    <td>
+                      <a href={`mailto:${user.email}`} className="text-decoration-none">{user.email}</a>
+                    </td>
+                    <td className="text-center">{user.age}</td>
+                    <td>
+                      <span className="badge bg-primary octofit-badge">{user.fitness_goal}</span>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
